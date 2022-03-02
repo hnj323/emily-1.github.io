@@ -31,10 +31,15 @@ Praneeta wants to estimate the price of a house. She will collect details such a
 import numpy as np import pandas as pd
 import matplotlib.pyplot as plt
 dataset = pd.read_csv("BostonHousingData.csv") 
-dataset  
 X = dataset[["tract" , "longitude" , "latitude" , "crime" , "residential" , "industrial" , "nox" , "rooms" , "older" , "distance" , "highway" , "tax" , "ptratio" , "lstat"]].values  
-X.shape  
 y = dataset[["cmedv"]].values 
+X.shape
+y.shape
+```
+#### Output
+```python
+(506, 14)
+(506, 1)
 ```
 
 ```python
@@ -51,7 +56,13 @@ lm = LinearRegression()   `
 scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5) 
 scores  
 ```
+#### Output
+```python
+array([-25.82783243, -27.23794898, -30.3510623 , -80.25664814,
+       -31.40953455])
+```
 
+```python
 ### Xgboost
 from xgboost import XGBRegressor
 
@@ -59,14 +70,25 @@ my_model = XGBRegressor()
 # can tune other metrics, such as MSE
 scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5)
 scores
+```
 
+#### Output 
+```python
+array([ -6.78874155,  -9.79002285, -19.71282514, -41.26469772,
+       -16.62709911])
+```
+
+```python
 dataset = pd.read_csv("Cars.csv") 
-dataset  X = dataset[["MPG" , "CYL" , "ENG"]].values 
-X  
-y = dataset[["WGT"]].values 
-y  
+ 
+X = dataset[["MPG" , "CYL" , "ENG"]].values 
 
-### Multiple Linear Regression   `
+y = dataset[["WGT"]].values 
+```
+
+
+### Multiple Linear Regression  
+```python
 
 ### k-fold CV (using all the 3 variables) for 5 times
 
@@ -75,8 +97,15 @@ lm = LinearRegression()   `
 ### can tune other metrics, such as MSE
 
 scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5)
-scores  
+scores 
+```
+#### Output
+```python
+array([-168066.74726422,  -94144.34580807,  -78223.41445844,
+        -48007.71189022, -116785.90395613])
+```
 
+```python
 ### XGBOOST 
 from xgboost import XGBRegressor  
 my_model = XGBRegressor()   `
@@ -84,4 +113,12 @@ my_model = XGBRegressor()   `
 ### can tune other metrics, such as MSE
 
 scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5) 
-scores   `
+scores 
+```
+####Output:
+
+```python
+array([-186522.5951182 ,  -86182.18667086,  -82654.3741858 ,
+        -34760.41135122,  -43382.35990583])
+```
+##### In this dataset the two models have different scores , sometimes the negative MSE for XGBRegressor is better than simple linear regression , and other times simple linear regression is better than XGBRegressor
