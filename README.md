@@ -1,5 +1,5 @@
 ## The concepts of Multivariate Regression and Gradient Boosting description: It descripes the analysis and gives intution for Multivariate Regression and Gradient Boosting
-=========================================================================================================================================================================
+
 
 1.  **What is XGBoost?**  
     
@@ -25,31 +25,63 @@ Praneeta wants to estimate the price of a house. She will collect details such a
 
 * * *
 
-CODE
-----
+## CODE
 
-`   import numpy as np import pandas as pd import matplotlib.pyplot as plt  dataset = pd.read_csv("BostonHousingData.csv") dataset  X = dataset[["tract" , "longitude" , "latitude" , "crime" , "residential" , "industrial" , "nox" , "rooms" , "older" , "distance" , "highway" , "tax" , "ptratio" , "lstat"]].values  X.shape  y = dataset[["cmedv"]].values  from sklearn.model_selection import cross_val_score from sklearn.model_selection import KFold from sklearn.linear_model import LinearRegression   `
+```python
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+dataset = pd.read_csv("BostonHousingData.csv") 
+dataset  
+X = dataset[["tract" , "longitude" , "latitude" , "crime" , "residential" , "industrial" , "nox" , "rooms" , "older" , "distance" , "highway" , "tax" , "ptratio" , "lstat"]].values  
+X.shape  
+y = dataset[["cmedv"]].values 
+```
+
+```python
+from sklearn.model_selection import cross_val_score 
+from sklearn.model_selection import KFold 
+from sklearn.linear_model import LinearRegression   `
 
 ### k-fold CV (using all the 14 variables) for 5 times
 
-`   lm = LinearRegression()   `
+lm = LinearRegression()   `
 
 ### can tune other metrics, such as MSE
 
-`   scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5) scores  """ XGBOOST """ from xgboost import XGBRegressor  my_model = XGBRegressor()   `
+scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5) 
+scores  
+```
 
-### can tune other metrics, such as MSE
+### Xgboost
+from xgboost import XGBRegressor
 
-`   scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5) scores  dataset = pd.read_csv("Cars.csv") dataset  X = dataset[["MPG" , "CYL" , "ENG"]].values X  y = dataset[["WGT"]].values y  """ Multiple Linear Regression """   `
+my_model = XGBRegressor()
+# can tune other metrics, such as MSE
+scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5)
+scores
+
+dataset = pd.read_csv("Cars.csv") 
+dataset  X = dataset[["MPG" , "CYL" , "ENG"]].values 
+X  
+y = dataset[["WGT"]].values 
+y  
+
+### Multiple Linear Regression   `
 
 ### k-fold CV (using all the 3 variables) for 5 times
 
-`   lm = LinearRegression()   `
+lm = LinearRegression()   `
 
 ### can tune other metrics, such as MSE
 
-`   scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5) scores  """ XGBOOST """ from xgboost import XGBRegressor  my_model = XGBRegressor()   `
+scores = cross_val_score(lm, X, y, scoring='neg_mean_squared_error', cv=5)
+scores  
+
+### XGBOOST 
+from xgboost import XGBRegressor  
+my_model = XGBRegressor()   `
 
 ### can tune other metrics, such as MSE
 
-`   scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5) scores   `
+scores = cross_val_score(my_model, X, y, scoring='neg_mean_squared_error', cv=5) 
+scores   `
